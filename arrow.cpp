@@ -6,7 +6,7 @@ arrowClass::arrowClass()
 	y = 100;
 	dir = 1;
 	score = 0;
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++) 
 	{
 		arrow_bmp[i] = NULL;
 	}
