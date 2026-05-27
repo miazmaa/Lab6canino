@@ -1,5 +1,7 @@
 #include <allegro5\allegro.h>
 #include <allegro5\allegro_primitives.h>
+#include <allegro5\allegro_ttf.h>
+#include <allegro5\allegro_font.h>
 #include "arrow.h";
 #include "bullet.h"
 
@@ -12,8 +14,9 @@ int main(void)
 
 	//variables
 	int width = 640;
-	int height = 480;
+	int height = 520;
 	bool done = false;
+	int gameHeight = 480; //keeps gameplay inside the 480 display 
 
 	//allegro variable
 	ALLEGRO_DISPLAY* display = NULL;
@@ -90,13 +93,13 @@ int main(void)
 
 			if (arrow.getSpeed() != 0) {
 				arrow.erase_arrow();
-				arrow.move_arrow(width, height);
+				arrow.move_arrow(width, gameHeight);
 			}
 			arrow.drawArrow();
 			for (int i = 0;i < 10;i++)
 			{
 				mybullet[i].erase_bullet();
-				score += mybullet[i].move_bullet(arrow.getX(), arrow.getY(), 32, 32, height);
+				score += mybullet[i].move_bullet(arrow.getX(), arrow.getY(), 32, 32, gameHeight);
 			}
 		}
 		al_flip_display();
