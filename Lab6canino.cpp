@@ -6,7 +6,6 @@
 int main(void)
 {
 	arrowClass arrow;
-	bullet mybullet[10];
 	int score = 0;
 	bool redraw = true;
 	const int FPS = 60;
@@ -25,8 +24,8 @@ int main(void)
 	if (!al_init())										//initialize Allegro
 		return -1;
 
-	display = al_create_display(width, height);			//create our display object
-
+	display = al_create_display(width, height);	//create our display object
+	bullet mybullet[10];
 	if (!display)										//test display object
 		return -1;
 

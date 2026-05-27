@@ -13,5 +13,6 @@ public:
 private:
 	int x, y;
 	bool alive;
+	ALLEGRO_BITMAP* bulletBitmap;
 };
 

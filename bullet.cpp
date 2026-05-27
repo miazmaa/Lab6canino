@@ -1,8 +1,15 @@
 #include "bullet.h"
 bullet::bullet()
 {
-	alive = false;;
 	srand(time(0));
+	alive = false;;
+	bulletBitmap = al_create_bitmap(16, 16);
+	ALLEGRO_BITMAP* storage = al_get_target_bitmap();
+	al_set_target_bitmap(bulletBitmap);
+	al_clear_to_color(al_map_rgb(0, 0, 0));
+	al_draw_line(8, 8, 4, 4, al_map_rgb(12, 72, 153), 14);
+	al_set_target_bitmap(storage);
+
 }
 bool bullet::getStatus()
 {
@@ -23,7 +30,7 @@ void bullet::erase_bullet()
 int bullet::move_bullet(int arrowX, int arrowY, int width, int length, int height)
 {
 	y++;
-	al_draw_filled_rectangle(x, y, x + 5, y + 5, al_map_rgb(255, 255, 0));//yellow color
+	al_draw_bitmap(bulletBitmap, x, y, 0);
 
 
 	if (x > arrowX && x < arrowX + width && y > arrowY && y < arrowY + length) {
