@@ -35,8 +35,10 @@ int main(void)
 	//addon init
 	al_install_keyboard();
 	al_init_primitives_addon();
+	al_init_font_addon();
+	al_init_ttf_addon();
 	arrow.create_arrow_bitmap(display);
-
+	ALLEGRO_FONT* boldFont = al_load_font("bold.ttf", 24, 0);
 
 	al_set_target_bitmap(al_get_backbuffer(display));
 	event_queue = al_create_event_queue();
@@ -51,7 +53,7 @@ int main(void)
 	{
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
-
+		al_draw_textf(boldFont, al_map_rgb(255, 255, 255), 0, 490, ALLEGRO_ALIGN_LEFT, "Score: %d", score);
 		if (ev.type == ALLEGRO_EVENT_TIMER)
 		{
 			redraw = true;
@@ -103,6 +105,9 @@ int main(void)
 			}
 		}
 		al_flip_display();
+	}
+	if (boldFont) {
+		al_destroy_font(boldFont);
 	}
 	al_destroy_event_queue(event_queue);
 	al_destroy_timer(timer);
