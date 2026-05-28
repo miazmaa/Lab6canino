@@ -22,6 +22,7 @@ int main(void)
 	ALLEGRO_DISPLAY* display = NULL;
 	ALLEGRO_EVENT_QUEUE* event_queue = NULL;
 	ALLEGRO_TIMER* timer = NULL;
+	ALLEGRO_TIMER* game_timer = NULL;
 
 	//program init
 	if (!al_init())										//initialize Allegro
@@ -43,23 +44,37 @@ int main(void)
 	al_set_target_bitmap(al_get_backbuffer(display));
 	event_queue = al_create_event_queue();
 	timer = al_create_timer(1.0 / FPS);
+	game_timer = al_create_timer(1.0);
+	al_register_event_source(event_queue, al_get_timer_event_source(game_timer));
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 	arrow.drawArrow();
 	al_flip_display();
 	al_start_timer(timer);
+	al_start_timer(game_timer);
 	while (!done)
 	{
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
 		if (ev.type == ALLEGRO_EVENT_TIMER)
 		{
-			redraw = true;
-			for (int i = 0;i < 10;i++)
+			if (ev.any.source == al_get_timer_event_source(game_timer))
 			{
-				if (!mybullet[i].getStatus()) {
-					mybullet[i].fire();
+				timeLeft--;
+				if (timeLeft <= 0)
+				{
+					done = true;
+				}
+			}
+			else if (ev.any.source == al_get_timer_event_source(timer))
+			{
+				redraw = true;
+				for (int i = 0; i < 10; i++)
+				{
+					if (!mybullet[i].getStatus()) {
+						mybullet[i].fire();
+					}
 				}
 			}
 		}
@@ -113,6 +128,7 @@ int main(void)
 		al_destroy_font(boldFont);
 	}
 	al_destroy_event_queue(event_queue);
+	al_destroy_timer(game_timer);
 	al_destroy_timer(timer);
 	al_destroy_display(display);						//destroy our display object
 	system("pause");
