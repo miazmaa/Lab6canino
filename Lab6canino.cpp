@@ -11,7 +11,7 @@ int main(void)
 	int score = 0;
 	bool redraw = true;
 	const int FPS = 60;
-
+	int timeLeft = 30;
 	//variables
 	int width = 640;
 	int height = 520;
@@ -106,6 +106,7 @@ int main(void)
 			}
 		}
 		al_draw_textf(boldFont, al_map_rgb(255, 255, 255), 0, 490, ALLEGRO_ALIGN_LEFT, "Score: %d", score);
+		al_draw_textf(boldFont, al_map_rgb(255, 255, 255), width - 10, height - 30, ALLEGRO_ALIGN_RIGHT, "Time: %d", timeLeft);
 		al_flip_display();
 	}
 	if (boldFont) {
