@@ -53,7 +53,6 @@ int main(void)
 	{
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
-		al_draw_textf(boldFont, al_map_rgb(255, 255, 255), 0, 490, ALLEGRO_ALIGN_LEFT, "Score: %d", score);
 		if (ev.type == ALLEGRO_EVENT_TIMER)
 		{
 			redraw = true;
@@ -92,6 +91,7 @@ int main(void)
 		if (redraw && al_is_event_queue_empty(event_queue))
 		{
 			redraw = false;
+			al_clear_to_color(al_map_rgb(0, 0, 0));
 
 			if (arrow.getSpeed() != 0) {
 				arrow.erase_arrow();
@@ -100,10 +100,12 @@ int main(void)
 			arrow.drawArrow();
 			for (int i = 0;i < 10;i++)
 			{
-				mybullet[i].erase_bullet();
-				score += mybullet[i].move_bullet(arrow.getX(), arrow.getY(), 32, 32, gameHeight);
+				if (mybullet[i].getStatus()) {
+					score += mybullet[i].move_bullet(arrow.getX(), arrow.getY(), 32, 32, gameHeight);
+				}
 			}
 		}
+		al_draw_textf(boldFont, al_map_rgb(255, 255, 255), 0, 490, ALLEGRO_ALIGN_LEFT, "Score: %d", score);
 		al_flip_display();
 	}
 	if (boldFont) {

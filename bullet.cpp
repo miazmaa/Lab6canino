@@ -45,5 +45,5 @@ int bullet::move_bullet(int arrowX, int arrowY, int width, int length, int gameH
 		return 1;
 	}
 
-
+	return 0;
 }
