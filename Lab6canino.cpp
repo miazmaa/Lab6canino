@@ -59,7 +59,7 @@ int main(void)
 		al_wait_for_event(event_queue, &ev);
 		if (ev.type == ALLEGRO_EVENT_TIMER)
 		{
-			if (ev.any.source == al_get_timer_event_source(game_timer))
+			if (ev.any.source == al_get_timer_event_source(game_timer)) //timer running out in event queue updates game status
 			{
 				timeLeft--;
 				if (timeLeft <= 0)
@@ -110,7 +110,7 @@ int main(void)
 
 			if (arrow.getSpeed() != 0) {
 				arrow.erase_arrow();
-				arrow.move_arrow(width, gameHeight);
+				arrow.move_arrow(width, gameHeight); //object cannot move into space where score and timer are held
 			}
 			arrow.drawArrow();
 			for (int i = 0;i < 10;i++)
